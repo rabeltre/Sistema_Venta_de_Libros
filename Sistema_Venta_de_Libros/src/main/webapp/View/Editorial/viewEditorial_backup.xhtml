@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xml:lang="en" lang="en"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+<head>
+    <title>Title</title>
+</head>
+<h:body>
+    <h1>Medicos</h1>
+    <ui:composition template="./../../templates/layout.xhtml">
+        <ui:define name="content">
+            <f:view>
+                <f:metadata>
+                    <f:viewAction action="#{viewEditorialBean.init}" onPostback="false"/>
+                </f:metadata>
+            </f:view>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="btn-group pull-right">
+
+                        <a jsf:outcome="/View/Editorial/saveOrUpdateEditorial.xhtml" class="btn btn-default"><i
+                                class="fa fa-support"></i> Nueva editorial</a>
+                    </div>
+                    <h1>Editoriales</h1>
+                    <br/>
+                    <p:dataTable var="editorial" value="#{viewEditorialBean.editorials}" id="tEditorial"
+                                >
+
+                        <p:column headerText="Nombre de la editorial">
+                            <strong>   <h:outputText value="#{editorial.nombre}"/></strong>
+                        </p:column>
+
+                        <p:column headerText="Valor">
+                            <strong>   <h:outputText value="#{editorial.valor}"/></strong>
+                        </p:column>
+
+                        <p:column headerText="">
+
+                            <h:link value="Historial" styleClass="btn btn-default btn-xs">
+
+                            </h:link>
+                            <p:spacer width="20"/>
+                            <h:link value="Editar" styleClass="btn btn-warning btn-xs"
+                                outcome="/View/Editorial/saveOrUpdateEditorial.xhtml">
+                                <f:param name="id" value="#{editorial.idEditorial}"></f:param>
+                            </h:link>
+
+                        </p:column>
+                    </p:dataTable>
+
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

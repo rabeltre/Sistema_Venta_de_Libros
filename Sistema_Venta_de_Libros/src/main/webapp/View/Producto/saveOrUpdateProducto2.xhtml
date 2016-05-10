@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xml:lang="en" lang="en"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<head>
+    <title>Title</title>
+</head>
+<h:body>
+    <ui:composition template="./../../templates/layout.xhtml">
+        <ui:define name="content">
+            <f:view>
+                <f:metadata>
+                    <f:viewAction action="#{updateOrSaveProductoBean.init}" onPostback="false"/>
+                    <f:viewParam name="id" id="id" value="#{updateOrSaveProductoBean.id}"/>
+                </f:metadata>
+            </f:view>
+
+            <div class="row">
+                <div class="col-md-10">
+                    <h1><h:outputLabel value="#{updateOrSaveProductoBean.option}"/></h1>
+                    <h:form role="form" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="name_of_product">Nombre del Producto: *</label>
+                            <div class="col-lg-10">
+                                <h:inputText style="text-transform:uppercase;"
+                                             onkeyup="javascript:this.value=this.value.toUpperCase()"
+                                             a:type="text" value="#{updateOrSaveProductoBean.producto.nombre}"
+                                             a:placeholder="Nombre del Producto" styleClass="form-control"
+                                             a:required="required">
+
+                                </h:inputText>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="precio_compra">Precio de compra: *</label>
+                            <div class="col-lg-10">
+                                <h:inputText a:placeholder="Precio de compra"
+                                             value="#{updateOrSaveProductoBean.producto.precio}"
+                                             a:type="number" a:step="any" styleClass="form-control"
+                                             a:required="required"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="editorial">Editorial: *</label>
+                            <div class="col-lg-10">
+                                <h:selectOneMenu value="#{updateOrSaveProductoBean.editorial}"
+                                                 a:required="required"
+                                                 styleClass="form-control">
+                                    <f:selectItem itemLabel=""/>
+                                    <f:selectItems value="#{updateOrSaveProductoBean.listaMapEditoriales}"
+                                    var="entry" itemValue="#{entry.value}" itemLabel="#{entry.key}"/>
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+
+                        <!---->
+                        <!--<div class="form-group">-->
+                            <!--<label class="col-lg-2 control-label" for="editorial">Editorial: *</label>-->
+                            <!--<div class="col-lg-10">-->
+                                <!--<h:selectOneMenu value="#{updateOrSaveProductoBean.editorial}"-->
+                                                 <!--a:required="required"-->
+                                                 <!--styleClass="form-control">-->
+                                    <!--<f:selectItem itemLabel=""/>-->
+                                    <!--<f:selectItems value="#{updateOrSaveProductoBean.listaMapEditoriales}"/>-->
+                                <!--</h:selectOneMenu>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="precio_venta">Precio de venta: *</label>
+                            <div class="col-lg-10">
+                                <h:inputText a:type="number" value="#{updateOrSaveProductoBean.producto.precioVenta}"
+                                             a:required="required"
+                                             a:placeholder="Precio de venta" a:step="any" styleClass="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="cantidad">Cantidad de producto: *</label>
+                            <div class="col-lg-10">
+                                <h:inputText value="#{updateOrSaveProductoBean.producto.cantidad}" a:required="required"
+                                             a:type="number" a:min="1" a:placeholder="Cantidad de producto"
+                                             styleClass="form-control"/>
+                            </div>
+                        </div>
+                        <!--<div class="row">-->
+                        <!--<p class="alert alert-info">* Campos obligatorios</p></div>-->
+
+
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+
+                                <p:commandButton styleClass="btn btn-primary btn-lg"
+                                                 action="#{updateOrSaveProductoBean.onPersist}"
+                                                 value="Guardar"/>
+
+                                <p:spacer width="25"/>
+                                <p:link styleClass="btn btn-danger btn-lg" value="Cancelar"
+                                        outcome="/View/Producto/viewProducto.xhtml">
+
+                                </p:link>
+
+
+
+                            </div>
+                        </div>
+                    </h:form>
+
+                </div>
+            </div>
+
+
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

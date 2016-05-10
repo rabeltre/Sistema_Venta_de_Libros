@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Sistema_Venta_de_Libros:war">
+    <output-path>$PROJECT_DIR$/Sistema_Venta_de_Libros/target</output-path>
+    <root id="archive" name="Sistema_Venta_de_Libros-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="Sistema_Venta_de_Libros:war exploded" />
+    </root>
+  </artifact>
+</component>
