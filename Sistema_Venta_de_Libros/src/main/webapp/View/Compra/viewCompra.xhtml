@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xml:lang="en" lang="en"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+<head>
+    <title>Title</title>
+</head>
+<h:body>
+    <h1>Medicos</h1>
+    <ui:composition template="./../../templates/layout.xhtml">
+        <ui:define name="content">
+            <f:view>
+                <f:metadata>
+                    <f:viewAction action="#{viewProductoBean.init}" onPostback="false"/>
+                </f:metadata>
+            </f:view>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!--<div class="btn-group pull-right">-->
+
+                        <!--&lt;!&ndash;<a jsf:outcome="/View/Producto/saveOrUpdateProducto.xhtml" class="btn btn-default"><i&ndash;&gt;-->
+                                <!--&lt;!&ndash;class="fa fa-support"></i> Nuevo Producto</a>&ndash;&gt;-->
+                        <!--<p:button value="Nuevo Producto" outcome="/View/Producto/saveOrUpdateProducto.xhtml" icon="ui-icon-plus"/>-->
+                    <!--</div>-->
+                    <h1>Productos</h1>
+                    <div class="btn-group pull-right">
+
+                        <!--<a jsf:outcome="/View/Producto/saveOrUpdateProducto.xhtml" class="btn btn-default"><i-->
+                        <!--class="fa fa-support"></i> Nuevo Producto</a>-->
+                        <p:button value="Nuevo Producto" outcome="/View/Producto/saveOrUpdateProducto.xhtml"
+                                  icon="ui-icon-circle-plus"/>
+                    </div>
+                    <br/>
+                    <h:form >
+<h:outputLabel value="Buscar por nombre: "></h:outputLabel><br/>
+       <h:inputText value="#{viewProductoBean.parametro}"  a:placeholder="Producto a buscar..." />  <p:spacer width="20"/>
+                        <p:commandButton value="Buscar" actionListener="#{viewProductoBean.search}" icon="ui-icon-search"
+                                         process="@all" update="tProducto"/>
+
+                    </h:form>
+                    <br/>
+                    <br/>
+
+
+                    <p:dataTable var="producto" value="#{viewProductoBean.productos}" id="tProducto"
+
+                                 rows="10"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="10,15,20,25">
+
+                        <p:column headerText="Nombre del Producto" >
+                         <strong>   <h:link value="#{producto[2]}" outcome="/View/Producto/saveOrUpdateProducto.xhtml">
+                             <f:param name="id" value="#{producto[0]}"></f:param>
+                         </h:link></strong>
+                        </p:column>
+                        <p:column headerText="Editorial" width="10%">
+                            <strong>  <h:outputText value="#{producto[1]}"/></strong>
+                        </p:column>
+                        <p:column headerText="Cantidad" width="5%">
+                            <strong>   <h:link value="#{producto[3]}" outcome="/View/Compra/saveOrUpdateCompra.xhtml">
+                                <f:param name="id" value="#{producto[0]}"></f:param>
+                            </h:link></strong>
+                        </p:column>
+
+                        <p:column headerText="Precio de compra" width="7%">
+                            <strong>    <h:outputText value="$ #{producto[4]}"/></strong>
+                        </p:column>
+                        <p:column headerText="Costo de venta" width="7%">
+                            <strong>    <h:outputText value="$ #{producto[4] * producto[3]}"/></strong>
+                        </p:column>
+
+                        <p:column headerText="Precio de venta" width="7%">
+                            <strong>  <h:outputText value="$ #{producto[5]}"/></strong>
+                        </p:column>
+                        <p:column headerText="Venta total" width="10%">
+                            <strong>  <h:outputText value="$ #{producto[5] * producto[3]}"/></strong>
+                        </p:column>
+
+
+
+                        <p:column headerText="">
+
+                            <h:link value="Historial" styleClass="btn btn-default btn-xs" title="#{producto[2]}"
+                                 >
+                                <!--<f:param name="id" value="#{pac[6]}"/>-->
+
+                            </h:link>
+                            <p:spacer width="20"/>
+                            <p:link title="#{producto[2]}" value="Editar"
+                                    outcome="/View/Producto/saveOrUpdateProducto.xhtml">
+                                <f:param name="id" value="#{producto[0]}"></f:param>
+                            </p:link>
+
+                            <p:spacer width="20"/>
+                            <h:link value="+" styleClass="btn btn-warning btn-xs" title="#{producto[0]}"
+                            >
+                                <!--<f:param name="id" value="#{pac[6]}"></f:param>-->
+                            </h:link>
+
+                        </p:column>
+                    </p:dataTable>
+
+                    <!--<p:dataTable var ="med" value="#{viewMedicoBean.especialidadMedica}"-->
+                    <!--id="tpaciente2" styleClass="table table-striped">-->
+                    <!--<p:column headerText="Nombre completo">-->
+                    <!--<h:outputText value="#{med[0]}"/>-->
+                    <!--</p:column>-->
+
+                    <!--<p:column headerText="Especialidad">-->
+                    <!--<h:outputText value="#{med[1]}"/>-->
+                    <!--</p:column>-->
+                    <!--</p:dataTable>-->
+
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
