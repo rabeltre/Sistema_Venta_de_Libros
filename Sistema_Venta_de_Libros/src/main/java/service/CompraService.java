@@ -40,4 +40,9 @@ public class CompraService {
     public Compra makePersistent(Compra entity) {
         return compraDao.makePersistent(entity);
     }
+
+
+    public List<Object> findCompras(String valor){
+        return compraDao.findCompras(valor);
+    }
 }

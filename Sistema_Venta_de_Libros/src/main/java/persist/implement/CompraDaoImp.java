@@ -2,6 +2,7 @@ package persist.implement;
 
 import model.Compra;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +54,12 @@ public class CompraDaoImp implements CompraDao {
         session=sessionFactory.getCurrentSession();
     }
 
+    @Override
+    public List<Object> findCompras(String valor) {
+        this.iniciarSession();
+        Query query = session.createQuery(valor);
+        query.setMaxResults(100);
+        return query.list();
+    }
 }
 
