@@ -26,6 +26,10 @@ public class CompraService {
         return productoDao.findById(idproducto);
     }
 
+    public List<Object[]> findOnlyNameAndIdOfProduct(){
+        return productoDao.findOnlyNameAndIdOfProduct();
+    }
+
 
     public Compra findById(String s) {
         return compraDao.findById(s);

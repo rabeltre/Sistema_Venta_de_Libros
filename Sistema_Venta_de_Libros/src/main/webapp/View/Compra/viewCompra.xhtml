@@ -17,6 +17,11 @@
     <h1>Medicos</h1>
     <ui:composition template="./../../templates/layout.xhtml">
         <ui:define name="content">
+            <f:view>
+                <f:metadata>
+                    <f:viewAction action="#{viewCompraBean.init}" onPostback="false"/>
+                </f:metadata>
+            </f:view>
 
             <div class="row">
                 <div class="col-md-12">
@@ -24,9 +29,12 @@
                     <br/>
                     <h:form>
                         <h:outputLabel value="Buscar por producto: "></h:outputLabel><br/>
-                        <p:selectOneMenu value="" effect="fade" style="width:20%" filter="true" filterMatchMode="startsWith">
-                            <f:selectItem itemLabel="---Seleccione un producto---" itemValue=""/>
-                            <f:selectItems value=""/>
+                        <p:selectOneMenu value="#{viewCompraBean.productoSeleccionado}"
+                                         style="text-transform:uppercase;width:20%"
+                                         onkeyup="javascript:this.value=this.value.toUpperCase()"
+                                         effect="fade"  filter="true" filterMatchMode="startsWith">
+                            <f:selectItem itemLabel="All" itemValue=""/>
+                            <f:selectItems value="#{viewCompraBean.listaDeProductos}"/>
                         </p:selectOneMenu>
                        <br/>
                        <br/>

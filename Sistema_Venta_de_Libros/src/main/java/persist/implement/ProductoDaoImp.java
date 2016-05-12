@@ -73,6 +73,14 @@ public class ProductoDaoImp implements ProductoDao{
         return query.list();
     }
 
+    @Override
+    public List<Object[]> findOnlyNameAndIdOfProduct() {
+        this.iniciarSession();
+        this.sql="select p.idProducto, p.nombre from Producto p order by p.idProducto";
+        Query query = session.createQuery(this.sql);
+        return query.list();
+    }
+
     public String getSql() {
 
         return sql;
