@@ -68,10 +68,20 @@ public class CompraDaoImp implements CompraDao {
     public List<Object> findComprasByIdProductoAndDate(Integer idProducto, Date fechaInicio, Date fechaFinal) {
         this.iniciarSession();
         System.out.println(fechaInicio);
-        String sql = "select c.producto.nombre, c.cantidad, c.producto.precio, c.fecha from Compra c " + sqlValidator(idProducto);
+        String sql = "select c.producto.nombre, c.cantidad, c.producto.precio, c.fecha from Compra c ";
+        sql = sql +  sqlValidator(idProducto);
+
+        if (fechaFinal != null && fechaInicio!= null){
+        sql = sql + sqlEntreFechas(idProducto);}
+
         Query query = session.createQuery(sql);
         if (idProducto !=0)
         query.setParameter("id", idProducto);
+
+        if (fechaFinal != null && fechaInicio!= null)
+        query.setParameter("fechaInicio",fechaInicio).setParameter("fechaFinal", fechaFinal);
+
+
         query.setMaxResults(100);
         return query.list();
     }
@@ -84,6 +94,20 @@ public class CompraDaoImp implements CompraDao {
         }else{
             return "where c.producto.idProducto=:id";
         }
+    }
+
+    private  String sqlEntreFechas(Integer valor){
+
+        String cadena ="c.fecha between :fechaInicio and :fechaFinal";
+        if (valor.equals(0)){
+            cadena = " where " + cadena;
+
+        }else {
+            cadena = " and " + cadena;
+
+        }
+
+        return cadena;
     }
 
 
