@@ -11,6 +11,7 @@ import javax.faces.convert.IntegerConverter;
 import javax.faces.model.SelectItem;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,8 +23,8 @@ public class ViewCompraBean implements Serializable {
     @ManagedProperty(value = "#{compraService}")
     private CompraService compraService;
     private List<Object> compras;
-    private String fechaInicial;
-    private String fechaFinal;
+    private Date fechaInicial;
+    private Date fechaFinal;
     private String idProductoAbuscar;
     private String sql;
     private Integer productoSeleccionado;
@@ -37,6 +38,10 @@ public void init (){
 
 
 }
+
+    public void buscarProducto(){
+        compras = compraService.findComprasByIdProductoAndDate(this.getProductoSeleccionado(), this.fechaInicial, this.fechaFinal);
+    }
     private void llenarComboProducto(){
         this.listaDeProductos = new ArrayList<SelectItem>();
         this.productos = compraService.findOnlyNameAndIdOfProduct();
@@ -46,6 +51,25 @@ public void init (){
         }
         this.productos.clear();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public List<SelectItem> getListaDeProductos() {
         return listaDeProductos;
@@ -75,20 +99,20 @@ public void init (){
         this.compraService = compraService;
     }
 
-    public String getFechaInicial() {
-        return fechaInicial;
-    }
-
-    public void setFechaInicial(String fechaInicial) {
-        this.fechaInicial = fechaInicial;
-    }
-
-    public String getFechaFinal() {
+    public Date getFechaFinal() {
         return fechaFinal;
     }
 
-    public void setFechaFinal(String fechaFinal) {
+    public void setFechaFinal(Date fechaFinal) {
         this.fechaFinal = fechaFinal;
+    }
+
+    public Date getFechaInicial() {
+        return fechaInicial;
+    }
+
+    public void setFechaInicial(Date fechaInicial) {
+        this.fechaInicial = fechaInicial;
     }
 
     public String getIdProductoAbuscar() {

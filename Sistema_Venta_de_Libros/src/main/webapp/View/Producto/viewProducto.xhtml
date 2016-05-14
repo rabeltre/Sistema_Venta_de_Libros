@@ -32,27 +32,31 @@
                         <!--<p:button value="Nuevo Producto" outcome="/View/Producto/saveOrUpdateProducto.xhtml" icon="ui-icon-plus"/>-->
                     <!--</div>-->
                     <h1>Productos</h1>
-                    <div class="btn-group pull-right">
 
-                        <!--<a jsf:outcome="/View/Producto/saveOrUpdateProducto.xhtml" class="btn btn-default"><i-->
-                        <!--class="fa fa-support"></i> Nuevo Producto</a>-->
-                        <p:button value="Nuevo Producto" outcome="/View/Producto/saveOrUpdateProducto.xhtml"
-                                  icon="ui-icon-circle-plus"/>
-                    </div>
                     <br/>
                     <h:form >
+                        <p:panel>
 <h:outputLabel value="Buscar por nombre: "></h:outputLabel><br/>
        <h:inputText value="#{viewProductoBean.parametro}"  a:placeholder="Producto a buscar..." />  <p:spacer width="20"/>
                         <p:commandButton value="Buscar" actionListener="#{viewProductoBean.search}" icon="ui-icon-search"
                                          process="@all" update="tProducto"/>
 
+
+                            <div class="btn-group pull-right">
+
+                                <!--<a jsf:outcome="/View/Producto/saveOrUpdateProducto.xhtml" class="btn btn-default"><i-->
+                                <!--class="fa fa-support"></i> Nuevo Producto</a>-->
+                                <p:button value="Nuevo Producto" outcome="/View/Producto/saveOrUpdateProducto.xhtml"
+                                          icon="ui-icon-circle-plus"/>
+                            </div>
+                        </p:panel>
                     </h:form>
                     <br/>
                     <br/>
 
 
                     <p:dataTable var="producto" value="#{viewProductoBean.productos}" id="tProducto"
-
+                                 paginatorPosition="bottom"
                                  rows="10"
                                  paginator="true"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"

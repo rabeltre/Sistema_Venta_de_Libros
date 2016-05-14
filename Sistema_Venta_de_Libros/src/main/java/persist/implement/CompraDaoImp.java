@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import persist.Interface.CompraDao;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,7 +25,9 @@ public class CompraDaoImp implements CompraDao {
         this.sessionFactory = sessionFactory;
     }
 
-
+    public void iniciarSession(){
+        session=sessionFactory.getCurrentSession();
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -50,9 +53,7 @@ public class CompraDaoImp implements CompraDao {
     }
 
 
-    public void iniciarSession(){
-        session=sessionFactory.getCurrentSession();
-    }
+
 
     @Override
     public List<Object> findCompras(String valor) {
@@ -61,5 +62,30 @@ public class CompraDaoImp implements CompraDao {
         query.setMaxResults(100);
         return query.list();
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Object> findComprasByIdProductoAndDate(Integer idProducto, Date fechaInicio, Date fechaFinal) {
+        this.iniciarSession();
+        System.out.println(fechaInicio);
+        String sql = "select c.producto.nombre, c.cantidad, c.producto.precio, c.fecha from Compra c " + sqlValidator(idProducto);
+        Query query = session.createQuery(sql);
+        if (idProducto !=0)
+        query.setParameter("id", idProducto);
+        query.setMaxResults(100);
+        return query.list();
+    }
+
+
+
+    private String sqlValidator(Integer valor){
+        if (valor.equals(0)){
+            return "";
+        }else{
+            return "where c.producto.idProducto=:id";
+        }
+    }
+
+
 }
 

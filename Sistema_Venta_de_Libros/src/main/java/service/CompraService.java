@@ -9,6 +9,7 @@ import persist.Interface.CompraDao;
 import persist.Interface.ProductoDao;
 
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -48,5 +49,9 @@ public class CompraService {
 
     public List<Object> findCompras(String valor){
         return compraDao.findCompras(valor);
+    }
+
+    public List<Object> findComprasByIdProductoAndDate(Integer idProducto, Date fechaInicio, Date fechaFinal) {
+        return compraDao.findComprasByIdProductoAndDate(idProducto, fechaInicio, fechaFinal);
     }
 }

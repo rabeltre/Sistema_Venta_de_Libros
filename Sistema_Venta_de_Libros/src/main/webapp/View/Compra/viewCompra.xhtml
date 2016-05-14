@@ -27,48 +27,87 @@
                 <div class="col-md-12">
                     <h1>Reporte de compras</h1>
                     <br/>
+
+
                     <h:form>
-                        <h:outputLabel value="Buscar por producto: "></h:outputLabel><br/>
-                        <p:selectOneMenu value="#{viewCompraBean.productoSeleccionado}"
-                                         style="text-transform:uppercase;width:20%"
-                                         onkeyup="javascript:this.value=this.value.toUpperCase()"
-                                         effect="fade"  filter="true" filterMatchMode="startsWith">
-                            <f:selectItem itemLabel="All" itemValue=""/>
-                            <f:selectItems value="#{viewCompraBean.listaDeProductos}"/>
-                        </p:selectOneMenu>
-                       <br/>
-                       <br/>
-                        <p:commandButton value="Buscar" actionListener="#{viewProductoBean.search}"
-                                         icon="ui-icon-search"
-                                         process="@all" update="tProducto"/>
+                        <p:panel>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h:outputLabel value="Buscar por producto: "></h:outputLabel><br/>
+                                    <p:selectOneMenu value="#{viewCompraBean.productoSeleccionado}"
+                                                     style="text-transform:uppercase;width:20%"
+                                                     onkeyup="javascript:this.value=this.value.toUpperCase()"
+                                                     effect="fade" filter="true" filterMatchMode="startsWith">
+                                        <f:selectItem itemLabel="All" itemValue=""/>
+                                        <f:selectItems value="#{viewCompraBean.listaDeProductos}"/>
+                                    </p:selectOneMenu>
+                                </div>
+                            </div>
 
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h:outputLabel value="Fecha de inicio:"/>
+                                    <p:calendar id="fechaInicio" placeholder="dd/MM/yyyy"
+                                                value="#{viewCompraBean.fechaInicial}"
+                                                pattern="dd/MM/yyyy"/>
+                                </div>
+                                <div class="col-md-3">
+                                    <h:outputLabel value="Fecha de fin:"/>
+                                    <p:calendar id="fechaFinal" placeholder="dd/MM/yyyy"
+                                                value="#{viewCompraBean.fechaFinal}"
+                                                pattern="dd/MM/yyyy"/>
+
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <p:commandButton value="Buscar"
+                                                     actionListener="#{viewCompraBean.buscarProducto}"
+                                                     icon="ui-icon-search"
+                                                     process="@all" update="tCompra"/>
+                                </div>
+
+                            </div>
+
+
+                        </p:panel>
                     </h:form>
+
+
                     <br/>
                     <br/>
 
 
-                    <p:dataTable var="producto" id="tProducto"
-
+                    <p:dataTable var="compra" id="tCompra"
+                                 value="#{viewCompraBean.compras}"
+                                 paginatorPosition="bottom"
                                  rows="10"
                                  paginator="true"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="10,15,20,25">
 
                         <p:column headerText="Nombre del Producto">
-                            <strong> <h:outputText value=""/></strong>
+                            <strong> <h:outputText value="#{compra[0]}" /></strong>
                         </p:column>
                         <p:column headerText="Fecha de la compra">
-                            <strong> <h:outputText value=""/></strong>
+                            <strong> <h:outputText value="#{compra[3]}"  >
+                                <f:convertDateTime locale="es_DO" dateStyle="full"/>
+                            </h:outputText></strong>
+
+
                         </p:column>
                         <p:column headerText="Cantidad de la compra">
-                            <strong> <h:outputText value=""/></strong>
+                            <strong> <h:outputText value="#{compra[1]}"/></strong>
                         </p:column>
 
                         <p:column headerText="Precio por unidad">
-                            <strong> <h:outputText value=""/></strong>
+                            <strong> <h:outputText value="#{compra[2]}"/></strong>
                         </p:column>
                         <p:column headerText="Monto total pagado">
-                            <strong> <h:outputText value=""/></strong>
+                            <strong> <h:outputText value="#{compra[1] * compra[2]}"/></strong>
                         </p:column>
 
                         <p:column headerText="">
