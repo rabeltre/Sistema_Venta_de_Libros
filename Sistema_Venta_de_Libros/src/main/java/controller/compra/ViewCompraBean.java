@@ -1,8 +1,10 @@
 package controller.compra;
 
 
+import org.primefaces.context.RequestContext;
 import service.CompraService;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -30,46 +32,38 @@ public class ViewCompraBean implements Serializable {
     private List<SelectItem> listaDeProductos;
 
 
+    public void init() {
+        this.llenarComboProducto();
 
-public void init (){
-    this.llenarComboProducto();
 
+    }
 
-}
-
-    public void buscarProducto(){
+    public void buscarProducto() {
+        if (fechaFinal != null && fechaInicial != null)
+            if (comparacionDeFechas()) return;
         compras = compraService.findComprasByIdProductoAndDate(this.getProductoSeleccionado(), this.fechaInicial, this.fechaFinal);
     }
-    private void llenarComboProducto(){
+
+    private void llenarComboProducto() {
         this.listaDeProductos = new ArrayList<SelectItem>();
         this.productos = compraService.findOnlyNameAndIdOfProduct();
 
-        for (Object[] object: productos){
-            listaDeProductos.add(new SelectItem( (Integer)object[0], (String) object[1]));
+        for (Object[] object : productos) {
+            listaDeProductos.add(new SelectItem((Integer) object[0], (String) object[1]));
         }
         this.productos.clear();
     }
 
-    public void comparacionDeFechas(){
-        System.out.println(fechaInicial.compareTo(fechaFinal));
+    public boolean comparacionDeFechas() {
+
+        if (fechaFinal.compareTo(fechaInicial) < 0) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Seleccione una Fecha Correcta!");
+            RequestContext.getCurrentInstance().showMessageInDialog(message);
+            return true;
+        }
+        return false;
+
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public List<SelectItem> getListaDeProductos() {
