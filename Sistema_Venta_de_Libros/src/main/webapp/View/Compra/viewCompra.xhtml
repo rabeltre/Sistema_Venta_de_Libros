@@ -110,18 +110,20 @@
                             <strong> <h:outputText value="#{compra[1] * compra[2]}"/></strong>
                         </p:column>
 
-                        <p:column headerText="">
+                        <p:column headerText="" width="5%">
 
                             <p:spacer width="20"/>
-                            <h:link value="Eliminar" styleClass="btn btn-danger btn-xs">
+                            <a href="index.php?view=delsell&amp;id=10" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
 
-                            </h:link>
+
 
                         </p:column>
                     </p:dataTable>
 
                 </div>
             </div>
+
+<p:commandButton actionListener="#{viewCompraBean.comparacionDeFechas}"/>
         </ui:define>
     </ui:composition>
 </h:body>

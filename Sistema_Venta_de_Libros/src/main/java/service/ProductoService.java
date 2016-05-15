@@ -44,4 +44,9 @@ public class ProductoService {
     public List<Object> findAllWithEditorialName() {
         return productoDao.findAllWithEditorialName();
     }
+
+    public void eliminarProducto(Integer idProducto){
+        productoDao.eliminarProducto(idProducto);
+
+    }
 }

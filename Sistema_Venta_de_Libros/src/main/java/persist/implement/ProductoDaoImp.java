@@ -81,6 +81,16 @@ public class ProductoDaoImp implements ProductoDao{
         return query.list();
     }
 
+    @Override
+    @Transactional
+    public void eliminarProducto(Integer idProducto) {
+        this.iniciarSession();
+        this.sql="update Producto set estado.idEstado=2  where idProducto=:idproducto";
+        Query query = session.createQuery(this.sql);
+        query.setParameter("idproducto", idProducto);
+        query.executeUpdate();
+    }
+
     public String getSql() {
 
         return sql;

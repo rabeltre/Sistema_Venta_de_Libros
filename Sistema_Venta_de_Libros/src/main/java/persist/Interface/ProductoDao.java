@@ -12,4 +12,5 @@ public interface ProductoDao extends GenericDao<Producto,String> {
 public List<Object> findAllWithEditorialName();
     public List<Object>findByName(String parametro);
     public List<Object[]>findOnlyNameAndIdOfProduct();
+    public void eliminarProducto(Integer idProducto);
 }

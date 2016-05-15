@@ -34,12 +34,12 @@
                     <h1>Productos</h1>
 
                     <br/>
-                    <h:form >
+                    <h:form>
                         <p:panel>
 <h:outputLabel value="Buscar por nombre: "></h:outputLabel><br/>
        <h:inputText value="#{viewProductoBean.parametro}"  a:placeholder="Producto a buscar..." />  <p:spacer width="20"/>
                         <p:commandButton value="Buscar" actionListener="#{viewProductoBean.search}" icon="ui-icon-search"
-                                         process="@all" update="tProducto"/>
+                                         process="@all" update=":formGeneral:tProducto"/>
 
 
                             <div class="btn-group pull-right">
@@ -55,6 +55,8 @@
                     <br/>
 
 
+<h:form id="formGeneral">
+
                     <p:dataTable var="producto" value="#{viewProductoBean.productos}" id="tProducto"
                                  paginatorPosition="bottom"
                                  rows="10"
@@ -67,7 +69,7 @@
                              <f:param name="id" value="#{producto[0]}"></f:param>
                          </h:link></strong>
                         </p:column>
-                        <p:column headerText="Editorial" width="10%">
+                        <p:column headerText="Editorial" width="8%">
                             <strong>  <h:outputText value="#{producto[1]}"/></strong>
                         </p:column>
                         <p:column headerText="Cantidad" width="5%">
@@ -76,14 +78,14 @@
                             </h:link></strong>
                         </p:column>
 
-                        <p:column headerText="Precio de compra" width="7%">
+                        <p:column headerText="Precio de compra" width="10%">
                             <strong>    <h:outputText value="$ #{producto[4]}"/></strong>
                         </p:column>
-                        <p:column headerText="Costo de venta" width="7%">
+                        <p:column headerText="Costo de venta" width="10%">
                             <strong>    <h:outputText value="$ #{producto[4] * producto[3]}"/></strong>
                         </p:column>
 
-                        <p:column headerText="Precio de venta" width="7%">
+                        <p:column headerText="Precio de venta" width="10%">
                             <strong>  <h:outputText value="$ #{producto[5]}"/></strong>
                         </p:column>
                         <p:column headerText="Venta total" width="10%">
@@ -92,27 +94,41 @@
 
 
 
-                        <p:column headerText="">
+                        <p:column headerText="" width="7%">
+                            <!--<h:link styleClass="btn btn-xs btn-primary" title="hola"><i class="glyphicon glyphicon-eye-open"></i>-->
 
-                            <h:link value="Historial" styleClass="btn btn-default btn-xs" title="#{producto[2]}"
-                                 >
-                                <!--<f:param name="id" value="#{pac[6]}"/>-->
-
-                            </h:link>
-                            <p:spacer width="20"/>
-                            <p:link title="#{producto[2]}" value="Editar"
-                                    outcome="/View/Producto/saveOrUpdateProducto.xhtml">
+                            <!--</h:link>-->
+                            <!--<p:spacer width="20"/>-->
+                            <p:link  styleClass="btn btn-xs btn-warning" outcome="/View/Producto/saveOrUpdateProducto.xhtml">
+                                <i class="glyphicon glyphicon-pencil"></i>
                                 <f:param name="id" value="#{producto[0]}"></f:param>
                             </p:link>
-
                             <p:spacer width="20"/>
-                            <h:link value="+" styleClass="btn btn-warning btn-xs" title="#{producto[0]}"
-                            >
-                                <!--<f:param name="id" value="#{pac[6]}"></f:param>-->
-                            </h:link>
+                            <p:commandLink styleClass="btn btn-xs btn-danger" oncomplete="PF('dlg3').show();"><i class="fa fa-trash"></i>
+                                <f:setPropertyActionListener value="#{producto[0]}" target="#{updateOrSaveProductoBean.idProductoSeleccionado}" />
+                                <!--<p:confirm header="Eliminar registro" message="¿Estas seguro?" icon="ui-icon-alert" />-->
+                            </p:commandLink>
+
+                            <!--<p:commandLink value="Historial"  title="#{producto[2]}"-->
+                                 <!--&gt;-->
+                                <!--&lt;!&ndash;<f:param name="id" value="#{pac[6]}"/>&ndash;&gt;-->
+
+                            <!--</p:commandLink>-->
+                            <!--<p:spacer width="20"/>-->
+                            <!--<p:link title="#{producto[2]}" value="Editar" -->
+                            <!--&gt;-->
+                               <!---->
+                            <!--</p:link>-->
+
+                            <!--<p:spacer width="20"/>-->
+                            <!--<h:link value="Eliminar"  title="#{producto[0]}"-->
+                            <!--&gt;-->
+                                <!--&lt;!&ndash;<f:param name="id" value="#{pac[6]}"></f:param>&ndash;&gt;-->
+                            <!--</h:link>-->
 
                         </p:column>
                     </p:dataTable>
+
 
                     <!--<p:dataTable var ="med" value="#{viewMedicoBean.especialidadMedica}"-->
                     <!--id="tpaciente2" styleClass="table table-striped">-->
@@ -124,6 +140,25 @@
                     <!--<h:outputText value="#{med[1]}"/>-->
                     <!--</p:column>-->
                     <!--</p:dataTable>-->
+
+
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Yes"  type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
+
+                        <p:dialog header="Eliminar registro" widgetVar="dlg3" modal="true" showEffect="explode" >
+<h:outputLabel value="¿Esta seguro?"/><br/>
+                            <p:commandButton value="Yes" update=":formGeneral:tProducto" process="@all"
+                                             action="#{updateOrSaveProductoBean.eliminarProducto}"
+                                             styleClass="ui-confirmdialog-yes"
+                                             icon="ui-icon-check"   oncomplete="PF('dlg3').hide();"/>
+                            <p:spacer width="20px"/>
+                            <p:commandButton value="No"  styleClass="ui-confirmdialog-no" icon="ui-icon-close" oncomplete="PF('dlg3').hide();"/>
+
+
+                        </p:dialog>
+                    </h:form>
 
                 </div>
             </div>

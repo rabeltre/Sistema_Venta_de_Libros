@@ -26,7 +26,7 @@ public class UpdateOrSaveProductoBean implements Serializable {
     private String id;
     private String option;
     private Estado estado;
-
+public Integer idProductoSeleccionado;
     private Integer selectItemEditorial;
 
     private List<SelectItem> listaDeEditoritoriales;
@@ -56,6 +56,10 @@ public class UpdateOrSaveProductoBean implements Serializable {
 
 
     }
+    public String eliminarProducto(){
+      productoService.eliminarProducto(this.idProductoSeleccionado);
+        return "viewProducto?faces-redirect=true";
+    }
 
     public String onPersist() {
         estado = new Estado(1);
@@ -69,7 +73,13 @@ public class UpdateOrSaveProductoBean implements Serializable {
     }
 
 
+    public Integer getIdProductoSeleccionado() {
+        return idProductoSeleccionado;
+    }
 
+    public void setIdProductoSeleccionado(Integer idProductoSeleccionado) {
+        this.idProductoSeleccionado = idProductoSeleccionado;
+    }
 
     public void setProductoService(ProductoService productoService) {
         this.productoService = productoService;

@@ -23,12 +23,15 @@ public class ViewProductoBean implements Serializable {
         productos = productoService.findAllWithEditorialName();
 
     }
+
 public void search(){
     productos = productoService.findByName(this.parametro);
 }
     public void setProductoService(ProductoService productoService) {
         this.productoService = productoService;
     }
+
+
 
     public List<Object> getProductos() {
         return productos;
@@ -45,4 +48,6 @@ public void search(){
     public void setProductos(List<Object> productos) {
         this.productos = productos;
     }
+
+
 }
