@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 19, 2016 12:58:55 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.GastosDetails" table="gastos_details" catalog="sistema_de_libros" optimistic-lock="version">
+        <id name="idGastosDetails" type="java.lang.Integer">
+            <column name="id_gastos_details" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="gastos" class="model.Gastos" fetch="select">
+            <column name="id_gastos" not-null="true" />
+        </many-to-one>
+        <property name="monto" type="big_decimal">
+            <column name="monto" precision="6" not-null="true" />
+        </property>
+        <property name="fecha" type="date">
+            <column name="fecha" length="10" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

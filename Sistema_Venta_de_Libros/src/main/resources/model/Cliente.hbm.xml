@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 19, 2016 12:58:55 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Cliente" table="cliente" catalog="sistema_de_libros" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="persona" class="model.Persona" fetch="select">
+            <column name="id_persona" not-null="true" />
+        </many-to-one>
+        <property name="telefono" type="string">
+            <column name="telefono" length="12" not-null="true" />
+        </property>
+        <property name="empresa" type="string">
+            <column name="empresa" length="50" not-null="true" />
+        </property>
+        <set name="nocontratos" table="nocontrato" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_cliente" not-null="true" />
+            </key>
+            <one-to-many class="model.Nocontrato" />
+        </set>
+        <set name="profesions" table="profesion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_cliente" not-null="true" />
+            </key>
+            <one-to-many class="model.Profesion" />
+        </set>
+        <set name="ciudads" table="ciudad" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_cliente" not-null="true" />
+            </key>
+            <one-to-many class="model.Ciudad" />
+        </set>
+    </class>
+</hibernate-mapping>

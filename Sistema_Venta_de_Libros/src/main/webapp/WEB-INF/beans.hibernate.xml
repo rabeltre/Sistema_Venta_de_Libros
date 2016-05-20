@@ -42,6 +42,15 @@
                 <value>/model/Producto.hbm.xml</value>
                 <value>/model/Estado.hbm.xml</value>
                 <value>/model/Compra.hbm.xml</value>
+                <value>/model/CategoriaGastos.hbm.xml</value>
+                <value>/model/Ciudad.hbm.xml</value>
+                <value>/model/Cliente.hbm.xml</value>
+                <value>/model/Empleado.hbm.xml</value>
+                <value>/model/Gastos.hbm.xml</value>
+                <value>/model/GastosDetails.hbm.xml</value>
+                <value>/model/Nocontrato.hbm.xml</value>
+                <value>/model/Persona.hbm.xml</value>
+                <value>/model/Profesion.hbm.xml</value>
 
 
             </list>
